@@ -1,7 +1,7 @@
 % script initializes parameters for simulations
 
 %% parameters related to simulations
-Param.T = 30; % simulation run time in seconds
+Param.T = 60; % simulation run time in seconds
 Param.deltaT = 0.5; % sample time in seconds
 Param.numSamps = Param.T/Param.deltaT; % number of samples
 
