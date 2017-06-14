@@ -1,7 +1,11 @@
 % function to generate random path for UAV's exploratory journey
+% can alter parameters in initParam.m
+% calls script initParam.m:
+%   Param.T, Param.deltaT,
+%   Param.initX, Param.initY, Param.altitude,
+%   Param.numRandomDirs
 % inputs:
-%   T, total simulation run time in seconds
-%   deltaT, sample time in seconds
+%   none
 % outputs:
 %   posnX, matrix of sample times and x position (pixels)
 %   posnY, matrix of sample times and y position (pixels)
@@ -9,13 +13,12 @@
 
 function [posnX, posnY, posnZ] = genRandomPath
 
+    %% initialize needed parameters
     initParam;
 
-    % compute number of samples
-    numSamps = Param.T/Param.deltaT;
-    
+    %% sample times
     % initialize ts (vector of sample times)
-    ts = zeros(numSamps+1,1);
+    ts = zeros(Param.numSamps+1,1);
     
     % set sample times
     for i = 1:length(ts)
@@ -23,27 +26,79 @@ function [posnX, posnY, posnZ] = genRandomPath
     end
     
     % initialize posnX,Y,Z and set sample times
-    posnX = ones(numSamps+1,2);
-    posnY = ones(numSamps+1,2);
-    posnZ = ones(numSamps+1,2);
+    posnX = ones(Param.numSamps+1,2);
+    posnY = ones(Param.numSamps+1,2);
+    posnZ = ones(Param.numSamps+1,2);
     
     posnX(:,1) = ts;
     posnY(:,1) = ts;
     posnZ(:,1) = ts;
     
+    %% random path generation
+    % determine random slopes
+    diffSlope = Param.maxRandSlope - Param.minRandSlope;
+    randXslopes = rand(Param.numRandDirs,1);
+    randXslopes = diffSlope.*randXslopes;
+    randXslopes = randXslopes + Param.minRandSlope;
+    randYslopes = rand(Param.numRandDirs,1);
+    randYslopes = diffSlope.*randYslopes;
+    randYslopes = randYslopes + Param.minRandSlope;
+    
+    % determine length of paths
+    divides = zeros(Param.numRandDirs,1);
+    lenDiv = Param.numSamps/Param.numRandDirs;
+    
+    for i = 1:length(divides)
+        divides(i) = (i * lenDiv) + 1;
+    end
+    
+    %% create paths
+    % create X,Y paths
+    posnX(1,2) = Param.initX;
+    posnY(1,2) = Param.initY;
+    
+    i = 2;
+    j = 1;
+    idx = i-1;
+    xSlope = randXslopes(j);
+    ySlope = randYslopes(j);
+    slopes = zeros(Param.numSamps+1,2);
+    
+    while (i <= Param.numSamps+1) && (j <= length(divides))
+        while i <= divides(j)
+            posnX(i,2) = xSlope*(posnX(i,1) - posnX(idx,1)) + ...
+                posnX(idx,2);
+            posnY(i,2) = ySlope*(posnY(i,1) - posnY(idx,1)) + ...
+                posnY(idx,2);
+            slopes(i,:) = [xSlope ySlope];
+            i = i+1;
+        end
+        j = j+1;
+        if j <= length(divides)
+            idx = i - 1;
+            xSlope = randXslopes(j);
+            ySlope = randYslopes(j);
+        end
+    end
+    
+    %{
+    for i = 2:Param.numSamps+1
+        if i <= divides(j)
+            posnX(i,2) = xSlope*posnX(i,1) + posnX(1,2);
+            posnY(i,2) = ySlope*posnY(i,1) + posnY(1,2);
+            slopes(i,:) = [xSlope ySlope];
+            i
+        else
+            if j+1 < length(divides)
+                j = j+1
+                xSlope = randXslopes(j);
+                ySlope = randYslopes(j);
+            end
+        end
+    end
+    %}
+    
     % fix altitude for duration of flight
     posnZ(:,2) = Param.altitude;
-    
-    % create X,Y paths
-    posnX(1,2) = 15;
-    posnY(1,2) = 15;
-    
-    for i = 2:length(posnX)
-        posnX(i,2) = 3*posnX(i,1) + posnX(1,2);
-    end
-    
-    for i = 2:length(posnY)
-        posnY(i,2) = 2*posnY(i,1) + posnY(1,2);
-    end
 
 end
