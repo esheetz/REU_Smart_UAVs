@@ -11,16 +11,13 @@
 % outputs:
 %   none
 
-function drawSnapshot(posnXY)
+function drawSnapshot(posnXY,img)
 
     % initialize needed parameters
     initParam
     
     % check to see if snapshot should be taken
     if mod(posnXY(1),Param.deltaS) == 0
-        % count another snapshot
-        Param.numSnaps = Param.numSnaps + 1;
-        
         % find posn and radius
         posn = [posnXY(2) + Param.absInitX,...
             posnXY(3) + Param.absInitY];
@@ -31,6 +28,14 @@ function drawSnapshot(posnXY)
         hold on
         figure(1)
         viscircles(posn,r,'Color','g');
+        
+        %% plot snapshots
+        % find upper left corner of snapshot
+        snapPosn = [posn(1) - r, posn(2) - r];
+
+        % plot snapshot
+        imcrop(img,[snapPosn 2*r 2*r])
+        title(sprintf('Snapshot at Time %d',posnXY(1)));
         
     end
     

@@ -20,6 +20,3 @@ Param.maxRandSlope = 10; % maximum slope of random line
 %% parameters related to camera view and snapshots
 Param.camAngView = 65; % angle (degrees) of camera view
 Param.deltaS = 30; % take snapshot every deltaS seconds
-Param.numSnaps = 1; % set initial number of snapshots taken
-                    % must initially be set to 1
-                    % first snap will be displayed in figure(2)

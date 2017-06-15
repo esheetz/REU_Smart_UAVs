@@ -23,14 +23,4 @@ image(img)
 sim(simStr,'SrcWorkspace','current');
 
 %% plot camera view at end of exploratory journey
-drawSnapshot([Param.T posnX(end,2) posnY(end,2)])
-
-%% plot snapshots
-%{
-% find upper left corner of snapshot
-snapPosn = [posn(1) - r, posn(2) + r];
-
-% plot snapshot
-figure(Param.numSnaps)
-imcrop(img,[snapPosn 2*r 2*r])
-%}
+drawSnapshot([Param.T posnX(end,2) posnY(end,2)],img)

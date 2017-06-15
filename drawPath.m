@@ -10,7 +10,7 @@
 % outputs:
 %   none
 
-function drawPath(posnXY)
+function drawPath(posnXY,img)
 
     % initialize needed parameters
     initParam
@@ -20,6 +20,6 @@ function drawPath(posnXY)
     figure(1)
     plot(posnXY(2) + Param.absInitX,...
         posnXY(3) + Param.absInitY, 'bo')
-    drawSnapshot(posnXY)
+    drawSnapshot(posnXY,img);
 
 end
