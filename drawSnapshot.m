@@ -1,8 +1,9 @@
-% function to draw snapshot
+% function to draw snapshot along path and crop snapshot
 % can alter parameters in initParam.m
 % calls script initParam.m:
 %   Param.altitude, Param.camAngView, Param.deltaS,
 %   Param.absInitX, Param.absInitY
+% global variables img, snapshots
 % inputs:
 %   posnXY, a vector with 3 elements
 %       posnXY(1) = simultion time
@@ -11,13 +12,16 @@
 % outputs:
 %   none
 
-function drawSnapshot(posnXY,img)
+function drawSnapshot(posnXY)
+    %% define global variables
+    global img
+    global snapshots
 
-    % initialize needed parameters
+    %% initialize needed parameters
     initParam
     
-    % check to see if snapshot should be taken
-    if mod(posnXY(1),Param.deltaS) == 0
+    %% check to see if snapshot should be taken
+    if (posnXY(1) > 0) && (mod(posnXY(1),Param.deltaS) == 0)
         % find posn and radius
         posn = [posnXY(2) + Param.absInitX,...
             posnXY(3) + Param.absInitY];
@@ -29,13 +33,21 @@ function drawSnapshot(posnXY,img)
         figure(1)
         viscircles(posn,r,'Color','g');
         
-        %% plot snapshots
+        % plot snapshots
         % find upper left corner of snapshot
-        snapPosn = [posn(1) - r, posn(2) - r];
+        offset = Param.snapDim/2;
+        snapPosn = [posn(1) - offset, posn(2) - offset];
 
+        % take snapshot
+        snap = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
+        
+        % store snapshot in array
+        snapshots = cat(3,snapshots,snap);
+        
         % plot snapshot
-        imcrop(img,[snapPosn 2*r 2*r])
-        title(sprintf('Snapshot at Time %d',posnXY(1)));
+        figure
+        image(snap)
+        title(sprintf('Snapshot at %d seconds',posnXY(1)));
         
     end
     

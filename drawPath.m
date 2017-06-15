@@ -2,6 +2,7 @@
 % can alter parameters in initParam.m
 % calls script initParam.m:
 %   Param.absInitX, Param.absInitY
+% calls function drawSnapshot(posnXY)
 % inputs:
 %   posnXY, a vector with 3 elements
 %       posnXY(1) = simultion time
@@ -10,8 +11,7 @@
 % outputs:
 %   none
 
-function drawPath(posnXY,img)
-
+function drawPath(posnXY)
     % initialize needed parameters
     initParam
     
@@ -20,6 +20,6 @@ function drawPath(posnXY,img)
     figure(1)
     plot(posnXY(2) + Param.absInitX,...
         posnXY(3) + Param.absInitY, 'bo')
-    drawSnapshot(posnXY,img);
+    drawSnapshot(posnXY);
 
 end
