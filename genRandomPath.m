@@ -1,15 +1,19 @@
 % function to generate random path for UAV's exploratory journey
 % can alter parameters in initParam.m
 % calls script initParam.m:
-%   Param.T, Param.deltaT,
+%   Param.T, Param.deltaT, Param.numSamps
 %   Param.initX, Param.initY, Param.altitude,
-%   Param.numRandomDirs
+%   Param.numRandomDirs, Param.minRandSlope, Param.maxRandSlope
 % inputs:
 %   none
 % outputs:
 %   posnX, matrix of sample times and x position (pixels)
 %   posnY, matrix of sample times and y position (pixels)
 %   posnZ, matrix of sample times and z position (pixels)
+% NOTES:
+%   does not avoid edges of images
+%   starting position (initParam.m) may run path off edge
+%   UAV exploratory journey created by coordinates
 
 function [posnX, posnY, posnZ] = genRandomPath
 
@@ -80,23 +84,6 @@ function [posnX, posnY, posnZ] = genRandomPath
             ySlope = randYslopes(j);
         end
     end
-    
-    %{
-    for i = 2:Param.numSamps+1
-        if i <= divides(j)
-            posnX(i,2) = xSlope*posnX(i,1) + posnX(1,2);
-            posnY(i,2) = ySlope*posnY(i,1) + posnY(1,2);
-            slopes(i,:) = [xSlope ySlope];
-            i
-        else
-            if j+1 < length(divides)
-                j = j+1
-                xSlope = randXslopes(j);
-                ySlope = randYslopes(j);
-            end
-        end
-    end
-    %}
     
     % fix altitude for duration of flight
     posnZ(:,2) = Param.altitude;
