@@ -19,6 +19,6 @@ Param.maxRandSlope = 10; % maximum slope of random line
 
 %% parameters related to camera view and snapshots
 Param.camAngView = 65; % angle (degrees) of camera view
-Param.deltaS = 30; % take snapshot every deltaS seconds
+Param.deltaS = 20; % take snapshot every deltaS seconds
 Param.snapDim = floor(2 * ...
     (Param.altitude * tand(Param.camAngView))); % dim for snapshots
