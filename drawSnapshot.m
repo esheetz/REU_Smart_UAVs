@@ -3,9 +3,9 @@
 % calls script initParam.m:
 %   Param.altitude, Param.camAngView, Param.deltaS,
 %   Param.absInitX, Param.absInitY
-% global variables img, snapshots
+% global variables img, snapshots, snapshotPosns
 % inputs:
-%   posnXY, a vector with 3 elements
+%   posnXY, a 3x1 vector with elements:
 %       posnXY(1) = simultion time
 %       posnXY(2) = x position
 %       posnXY(3) = y position
@@ -16,6 +16,7 @@ function drawSnapshot(posnXY)
     %% define global variables
     global img
     global snapshots
+    global snapshotPosns
 
     %% initialize needed parameters
     initParam
@@ -43,6 +44,7 @@ function drawSnapshot(posnXY)
         
         % store snapshot in array
         snapshots = cat(3,snapshots,snap);
+        snapshotPosns = cat(1,snapshotPosns,posnXY');
         
         % plot snapshot
         figure

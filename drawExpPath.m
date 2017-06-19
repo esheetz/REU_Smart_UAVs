@@ -4,14 +4,14 @@
 %   Param.absInitX, Param.absInitY
 % calls function drawSnapshot(posnXY)
 % inputs:
-%   posnXY, a vector with 3 elements
+%   posnXY, a 3x1 vector with elements:
 %       posnXY(1) = simultion time
 %       posnXY(2) = x position
 %       posnXY(3) = y position
 % outputs:
 %   none
 
-function drawPath(posnXY)
+function drawExpPath(posnXY)
     % initialize needed parameters
     initParam
     
