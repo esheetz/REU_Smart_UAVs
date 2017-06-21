@@ -1,8 +1,7 @@
 % function to generate directions for UAV's exploratory journey
 % can alter parameters in initParam.m
 % calls script initParam.m:
-%   Param.T, Param.deltaT, Param.numSamps
-%   Param.initX, Param.initY, Param.altitude,
+%   Param.deltaT, Param.numSamps,
 %   Param.numRandomDirs, Param.minRandDir, Param.maxRandDir
 % inputs:
 %   none

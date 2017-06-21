@@ -55,4 +55,4 @@ currCam = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
 pixOffset = 0;
 
 %% run simulation
-%sim(simStr,'SrcWorkspace','current');
+sim(simStr,'SrcWorkspace','current');

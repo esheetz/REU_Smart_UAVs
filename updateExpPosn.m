@@ -1,5 +1,7 @@
 % updates the position of the UAV
 % updated position saved as time series in posnX,Y,Z_exp
+% calls script initParam.m:
+%   Param.altitude
 % inputs:
 %   dirV, normalized 4x1 direction vector
 %       dirV(1) = simulation time

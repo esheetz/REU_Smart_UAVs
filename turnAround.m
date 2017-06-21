@@ -1,4 +1,6 @@
 % computes the initial normalized direction vector for return journey
+% calls script initParam.m:
+%   Param.deltaT
 % inputs:
 %   dir_prev, normalized 4x1 direction vector
 %       dir_prev(1) = simulation time

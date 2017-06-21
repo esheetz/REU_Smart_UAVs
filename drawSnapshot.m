@@ -2,8 +2,7 @@
 % can alter parameters in initParam.m
 % calls script initParam.m:
 %   Param.altitude, Param.camAngView, Param.deltaS,
-%   Param.absInitX, Param.absInitY
-% global variables img, snapshots, snapshotPosns
+%   Param.snapDim, Param.absInitX, Param.absInitY
 % inputs:
 %   posnXYZ, a vector with 4 elements
 %       posnXYZ(1) = simultion time

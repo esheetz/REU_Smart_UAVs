@@ -11,16 +11,16 @@ simStr = 'exploratory_journey'; % extension not needed
 initParam
 
 %% define global variables
+global posnX_exp
+global posnY_exp
+global posnZ_exp
 global img
 global snapshots
 global snapshotPosns
-global posnX_exp % not needed if genRandomPath is used
-global posnY_exp
-global posnZ_exp
 
 %% create random paths
 [dirX,dirY,dirZ] = genRandomDirs;
-%[posnX,posnY,posnZ] = genRandomPath;
+%[posnX_exp,posnY_exp,posnZ_exp] = genRandomPath;
 
 %% initialize path history
 posnX_exp = [0 Param.initX];

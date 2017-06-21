@@ -1,4 +1,7 @@
 % updates currCam and currSnap images
+% calls script initParam.m:
+%   Param.absInitX, Param.absInitY,
+%   Param.snapDim, Param.switchThresh
 % inputs:
 %   posnXYZ, a vector with 4 elements
 %       posnXYZ(1) = simultion time
