@@ -5,6 +5,7 @@
 % name of image to be read in
 str = 'images/city.png'; % absolute path and extension needed
 simStr = 'exploratory_journey'; % extension not needed
+% simStr = 'exploratory_journey_path';
 
 %% initialize needed parameters
 initParam
@@ -13,9 +14,18 @@ initParam
 global img
 global snapshots
 global snapshotPosns
+global posnX_exp % not needed if genRandomPath is used
+global posnY_exp
+global posnZ_exp
 
 %% create random paths
-[posnX,posnY,posnZ] = genRandomPath;
+[dirX,dirY,dirZ] = genRandomDirs;
+%[posnX,posnY,posnZ] = genRandomPath;
+
+%% initialize path history
+posnX_exp = [0 Param.initX];
+posnY_exp = [0 Param.initY];
+posnZ_exp = [0 Param.altitude];
 
 %% read in image and initialize figure
 img = imread(str);
@@ -45,7 +55,7 @@ snap = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
 
 % store snapshot in array
 snapshots = snap;
-snapshotPosns = [0 0 0];
+snapshotPosns = [0 Param.initX Param.initY Param.altitude];
 
 % plot snapshot
 figure
@@ -56,4 +66,5 @@ title(sprintf('Snapshot at %d seconds',0));
 sim(simStr,'SrcWorkspace','current');
 
 %% plot camera view at end of exploratory journey
-drawSnapshot([Param.T ; posnX(end,2) ; posnY(end,2)]);
+drawSnapshot([Param.T; posnX_exp(end,2);...
+                posnY_exp(end,2); posnZ_exp(end,2)]);

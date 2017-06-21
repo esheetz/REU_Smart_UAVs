@@ -4,7 +4,7 @@
 %   posnY, matrix of sample times and y position (pixels)
 %   posnZ, matrix of sample times and z position (pixels)
 % outputs:
-%   dirV, normalized direction vector for return journey
+%   dirV, normalized 3x1 direction vector for return journey
 
 function dirV = turnAround(posnX,posnY,posnZ)
 

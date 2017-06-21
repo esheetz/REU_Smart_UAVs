@@ -3,32 +3,32 @@
 % inputs:
 %   dirV, normalized direction vector
 % outputs:
-%   posnXY, a vector with 4 elements
+%   posnXYZ, a vector with 4 elements
 %       posnXYZ(1) = simultion time
 %       posnXYZ(2) = x position
 %       posnXYZ(3) = y position
 %       posnXYZ(4) = z position
 
-function [posnXYZ] = updatePosn(dirV)
+function [posnXYZ] = updateRetPosn(dirV)
     %% define global variables
-    global posnX_return
-    global posnY_return
-    global posnZ_return
+    global posnX_ret
+    global posnY_ret
+    global posnZ_ret
     
     %% initialize needed parameters
     initParam
     
     %% next timestamp
-    ts_next = posnX_return(end,1) + Param.deltaT;
+    ts_next = posnX_ret(end,1) + Param.deltaT;
     
     %% update position
-    posnX_next = posnX_return(end,2) + dirV(1);
-    posnY_next = posnY_return(end,2) + dirV(2);
+    posnX_next = posnX_ret(end,2) + dirV(1);
+    posnY_next = posnY_ret(end,2) + dirV(2);
     posnZ_next = Param.altitude;
     
-    posnX_return = cat(1,posnX_return,[ts_next posnX_next]);
-    posnY_return = cat(1,posnY_return,[ts_next posnY_next]);
-    posnZ_return = cat(1,posnZ_return,[ts_next posnZ_next]);
+    posnX_ret = cat(1,posnX_ret,[ts_next posnX_next]);
+    posnY_ret = cat(1,posnY_ret,[ts_next posnY_next]);
+    posnZ_ret = cat(1,posnZ_ret,[ts_next posnZ_next]);
     
     posnXYZ = [ts_next posnX_next posnY_next posnZ_next];
     

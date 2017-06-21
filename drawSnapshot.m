@@ -5,14 +5,15 @@
 %   Param.absInitX, Param.absInitY
 % global variables img, snapshots, snapshotPosns
 % inputs:
-%   posnXY, a 3x1 vector with elements:
-%       posnXY(1) = simultion time
-%       posnXY(2) = x position
-%       posnXY(3) = y position
+%   posnXYZ, a vector with 4 elements
+%       posnXYZ(1) = simultion time
+%       posnXYZ(2) = x position
+%       posnXYZ(3) = y position
+%       posnXYZ(4) = z position
 % outputs:
 %   none
 
-function drawSnapshot(posnXY)
+function drawSnapshot(posnXYZ)
     %% define global variables
     global img
     global snapshots
@@ -22,12 +23,12 @@ function drawSnapshot(posnXY)
     initParam
     
     %% check to see if snapshot should be taken
-    if (posnXY(1) > 0) && (mod(posnXY(1),Param.deltaS) == 0)
+    if (posnXYZ(1) > 0) && (mod(posnXYZ(1),Param.deltaS) == 0)
         % find posn and radius
-        posn = [posnXY(2) + Param.absInitX,...
-            posnXY(3) + Param.absInitY];
+        posn = [posnXYZ(2) + Param.absInitX,...
+            posnXYZ(3) + Param.absInitY];
         r = Param.altitude * tand(Param.camAngView);
-        posnXY(1)
+        posnXYZ(1)
 
         % plot snapshot catchment area
         hold on
@@ -44,12 +45,12 @@ function drawSnapshot(posnXY)
         
         % store snapshot in array
         snapshots = cat(3,snapshots,snap);
-        snapshotPosns = cat(1,snapshotPosns,posnXY');
+        snapshotPosns = cat(1,snapshotPosns,posnXYZ');
         
         % plot snapshot
         figure
         image(snap)
-        title(sprintf('Snapshot at %d seconds',posnXY(1)));
+        title(sprintf('Snapshot at %d seconds',posnXYZ(1)));
         
     end
     

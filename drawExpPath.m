@@ -4,22 +4,23 @@
 %   Param.absInitX, Param.absInitY
 % calls function drawSnapshot(posnXY)
 % inputs:
-%   posnXY, a 3x1 vector with elements:
-%       posnXY(1) = simultion time
-%       posnXY(2) = x position
-%       posnXY(3) = y position
+%   posnXYZ, a vector with 4 elements
+%       posnXYZ(1) = simultion time
+%       posnXYZ(2) = x position
+%       posnXYZ(3) = y position
+%       posnXYZ(4) = z position
 % outputs:
 %   none
 
-function drawExpPath(posnXY)
+function drawExpPath(posnXYZ)
     % initialize needed parameters
     initParam
     
     % plot points
     hold on
     figure(1)
-    plot(posnXY(2) + Param.absInitX,...
-        posnXY(3) + Param.absInitY, 'bo')
-    drawSnapshot(posnXY);
+    plot(posnXYZ(2) + Param.absInitX,...
+        posnXYZ(3) + Param.absInitY, 'bo')
+    drawSnapshot(posnXYZ);
 
 end
