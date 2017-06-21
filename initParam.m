@@ -1,7 +1,8 @@
 % script initializes parameters for simulations
 
 %% parameters related to simulations
-Param.T = 180; % simulation run time in seconds
+Param.T = 180; % exploratory simulation run time in seconds
+Param.TStop = 2*Param.T; % return simulation run time in seconds
 Param.deltaT = 0.1; % sample time in seconds
 Param.numSamps = Param.T/Param.deltaT; % number of samples
 
@@ -24,3 +25,4 @@ Param.camAngView = 65; % angle (degrees) of camera view
 Param.deltaS = 20; % take snapshot every deltaS seconds
 Param.snapDim = floor(2 * ...
     (Param.altitude * tand(Param.camAngView))); % dim for snapshots
+Param.switchThresh = 30; % pixel offset indicates snapshot switch

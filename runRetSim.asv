@@ -21,7 +21,6 @@ global posnZ_ret
 global currCam
 global currSnap
 global snapIdx
-global pixOffset
 global waypointPosns
 
 %% initialize return history
@@ -43,7 +42,7 @@ drawRetPath(posnXYZ)
 %% initialize currCam and currSnap
 % currSnap
 snapIdx = Param.T/Param.deltaS + 1;
-currSnap = snapshots(:,:,((3*snapIdx)-2):(3*snapIdx));
+currSnap = snapshots(:,:,snapIdx+1:3*snapIdx);
 
 % currCam
 posn = [posnXYZ(2) + Param.absInitX, posnXYZ(3) + Param.absInitY];
@@ -51,8 +50,6 @@ offset = Param.snapDim/2;
 snapPosn = [posn(1) - offset, posn(2) - offset];
 currCam = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
 
-% initialize pixOffset
-pixOffset = 0;
-
 %% run simulation
-%sim(simStr,'SrcWorkspace','current');
+sim(simStr,'SrcWorkspace','current');
+

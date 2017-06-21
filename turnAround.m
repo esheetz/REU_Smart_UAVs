@@ -1,19 +1,29 @@
 % computes the initial normalized direction vector for return journey
 % inputs:
-%   posnX, matrix of sample times and x position (pixels)
-%   posnY, matrix of sample times and y position (pixels)
-%   posnZ, matrix of sample times and z position (pixels)
+%   dir_prev, normalized 4x1 direction vector
+%       dir_prev(1) = simulation time
+%       dir_prev(2) = x direction
+%       dir_prev(3) = y direction
+%       dir_prev(4) = z direction
 % outputs:
-%   dirV, normalized 3x1 direction vector for return journey
+%   dirV, normalized 4x1 direction vector for return journey
+%       dirV(1) = simulation time
+%       dirV(2) = x direction
+%       dirV(3) = y direction
+%       dirV(4) = z direction
 
-function dirV = turnAround(posnX,posnY,posnZ)
+function dirV = turnAround(dir_prev)
 
-    posn_final = [posnX(end,2) posnY(end,2) posnZ(end,2)];
-    posn_prev = [posnX(end-1,2) posnY(end-1,2) posnZ(end-1,2)];
+    % initialize needed parameters
+    initParam
     
-    vec = posn_prev - posn_final;
+    % initialize dirV
+    dirV = zeros(4,1);
     
-    len = norm(vec);
-    dirV = (1/len)*vec;
+    % set values
+    dirV(1) = dir_prev(1) + Param.deltaT;
+    dirV(2) = -dir_prev(2);
+    dirV(3) = -dir_prev(3);
+    dirV(4) = -dir_prev(4);
 
 end

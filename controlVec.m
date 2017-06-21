@@ -1,10 +1,24 @@
 % compute the control vector
 % inputs:
-%   H4point, a 4x2 matrix
+%   nnOut, an 8x1 vector of the neural network output
+%       [[ deltaX1 ]
+%        [ deltaY1 ]
+%        [ deltaX2 ]
+%        [ deltaY2 ]
+%        [ deltaX3 ]
+%        [ deltaY3 ]
+%        [ deltaX4 ]
+%        [ deltaY4 ]]
 % outputs:
-%   dirV, a normalized direction vector
+%   dirV, a normalized 3x1 direction vector
 
-function dirV = controlVec(H4point)
+function dirV = controlVec(nnOut)
+    
+    %% define global variables
+    global pixOffset
+
+    %% rearrange to H4point
+    H4point = nnToH4pnt(nnOut);
     
     %% convert homography
     Hmatrix = convertHomography(H4point);
@@ -38,6 +52,9 @@ function dirV = controlVec(H4point)
     v = v/(prCOG' * prCOG);   % 1x1
     v = v * prCOG;            % 3x1
     v = v - pcCOG;            % 3x1
+    
+    % update pixOffset
+    pixOffset = norm(v);
     
     % normalize
     len = norm(v);

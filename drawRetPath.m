@@ -21,5 +21,8 @@ function drawRetPath(posnXYZ)
     figure(1)
     plot(posnXYZ(2) + Param.absInitX,...
         posnXYZ(3) + Param.absInitY, 'ro')
+    
+    % update currCam and currSnap
+    updateImgs(posnXYZ)
 
 end
