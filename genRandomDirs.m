@@ -6,15 +6,13 @@
 % inputs:
 %   none
 % outputs:
-%   dirX, matrix of sample times and x direction
-%   dirY, matrix of sample times and y direction
-%   dirZ, matrix of sample times and z direction
+%   dirV_exp, matrix of sample times and x,y,z direction
 % NOTES:
 %   does not avoid edges of images
 %   starting position (initParam.m) may run path off edge
 %   UAV exploratory journey created by coordinates
 
-function [dirX, dirY, dirZ] = genRandomDirs
+function dirV_exp = genRandomDirs
 
     %% initialize needed parameters
     initParam;
@@ -28,14 +26,10 @@ function [dirX, dirY, dirZ] = genRandomDirs
         ts(i) = Param.deltaT*(i-1);
     end
     
-    % initialize dirX,Y,Z and set sample times
-    dirX = zeros(Param.numSamps+1,2);
-    dirY = zeros(Param.numSamps+1,2);
-    dirZ = zeros(Param.numSamps+1,2); % dirZ complete
+    % initialize dirV_exp and set sample times
+    dirV_exp = zeros(Param.numSamps+1,4); %dirZ complete
     
-    dirX(:,1) = ts;
-    dirY(:,1) = ts;
-    dirZ(:,1) = ts;
+    dirV_exp(:,1) = ts;
     
     %% random direction generation
     % determine random slopes
@@ -62,8 +56,8 @@ function [dirX, dirY, dirZ] = genRandomDirs
     init = 1;
     i = 1;
     while (init < Param.numSamps + 1) && (i <= Param.numRandDirs)
-        dirX(init:init+lenDiv,2) = randXdirs(i);
-        dirY(init:init+lenDiv,2) = randYdirs(i);
+        dirV_exp(init:init+lenDiv,2) = randXdirs(i);
+        dirV_exp(init:init+lenDiv,3) = randYdirs(i);
         init = init + lenDiv;
         i = i + 1;
     end

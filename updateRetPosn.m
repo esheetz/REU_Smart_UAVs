@@ -1,5 +1,5 @@
 % updates the position of the UAV
-% updated position saved as time series in posnX,Y,Z_ret
+% updated position saved as time series in posn_ret
 % calls script initParam.m:
 %   Param.altitude
 % inputs:
@@ -9,7 +9,7 @@
 %       dirV(3) = y direction
 %       dirV(4) = z direction
 % outputs:
-%   posnXYZ, a vector with 4 elements
+%   posnXYZ, a 4x1 vector
 %       posnXYZ(1) = simultion time
 %       posnXYZ(2) = x position
 %       posnXYZ(3) = y position
@@ -17,9 +17,7 @@
 
 function [posnXYZ] = updateRetPosn(dirV)
     %% define global variables
-    global posnX_ret
-    global posnY_ret
-    global posnZ_ret
+    global posn_ret
     
     %% initialize needed parameters
     initParam
@@ -28,14 +26,11 @@ function [posnXYZ] = updateRetPosn(dirV)
     ts_next = dirV(1);
     
     %% update position
-    posnX_next = posnX_ret(end,2) + dirV(2);
-    posnY_next = posnY_ret(end,2) + dirV(3);
+    posnX_next = posn_ret(end,2) + dirV(2);
+    posnY_next = posn_ret(end,3) + dirV(3);
     posnZ_next = Param.altitude;
     
-    posnX_ret = cat(1,posnX_ret,[ts_next posnX_next]);
-    posnY_ret = cat(1,posnY_ret,[ts_next posnY_next]);
-    posnZ_ret = cat(1,posnZ_ret,[ts_next posnZ_next]);
-    
-    posnXYZ = [ts_next posnX_next posnY_next posnZ_next];
+    posnXYZ = [ts_next; posnX_next; posnY_next; posnZ_next];
+    posn_ret = cat(1,posn_ret,posnXYZ');
     
 end

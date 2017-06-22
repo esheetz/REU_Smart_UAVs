@@ -9,15 +9,12 @@ initParam
 
 %% define global variables
 % from exploratory journey
-global posnX_exp
-global posnY_exp
-global posnZ_exp
+global posn_exp
 global snapshots
 
 % for return journey
-global posnX_ret
-global posnY_ret
-global posnZ_ret
+global dirV_ret
+global posn_ret
 global currCam
 global currSnap
 global snapIdx
@@ -26,15 +23,14 @@ global waypointPosns
 
 %% initialize return history
 ts_next = dirX(end,1) + Param.deltaT;
-posnX_ret = [ts_next posnX_exp(end,2)];
-posnY_ret = [ts_next posnY_exp(end,2)];
-posnZ_ret = [ts_next posnZ_exp(end,2)];
-waypointPosns = [Param.T, posnX_exp(end,2),...
-                    posnY_exp(end,2), Param.altitude];
+posn_ret = [ts_next posn_exp(end,2) posn_exp(end,3) posn_exp(end,4)];
+waypointPosns = [Param.T, posn_exp(end,2),...
+                    posn_exp(end,3), Param.altitude];
 
 %% get initial direction vector
-dir_prev = [dirX(end,1); dirX(end,2); dirY(end,2); dirZ(end,2)];
+dir_prev = dirV_exp(end,:)';
 dirV = turnAround(dir_prev);
+dirV_ret = dirV';
 
 %% update position and plot
 posnXYZ = updateRetPosn(dirV);

@@ -15,6 +15,7 @@
 function dirV = controlVec(nnOut)
     
     %% define global variables
+    global dirV_ret
     global pixOffset
 
     %% rearrange to H4point
@@ -59,5 +60,6 @@ function dirV = controlVec(nnOut)
     % normalize
     len = norm(v);
     dirV = (1/len)*v;
+    dirV_ret = cat(1,dirV_ret,dirV');
     
 end

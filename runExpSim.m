@@ -11,21 +11,17 @@ simStr = 'exploratory_journey'; % extension not needed
 initParam
 
 %% define global variables
-global posnX_exp
-global posnY_exp
-global posnZ_exp
+global posn_exp
 global img
 global snapshots
 global snapshotPosns
 
 %% create random paths
-[dirX,dirY,dirZ] = genRandomDirs;
+dirV_exp = genRandomDirs;
 %[posnX_exp,posnY_exp,posnZ_exp] = genRandomPath;
 
 %% initialize path history
-posnX_exp = [0 Param.initX];
-posnY_exp = [0 Param.initY];
-posnZ_exp = [0 Param.altitude];
+posn_exp = [0 Param.initX Param.initY Param.altitude];
 
 %% read in image and initialize figure
 img = imread(str);
@@ -66,5 +62,5 @@ title(sprintf('Snapshot at %d seconds',0));
 sim(simStr,'SrcWorkspace','current');
 
 %% plot camera view at end of exploratory journey
-drawSnapshot([Param.T; posnX_exp(end,2);...
-                posnY_exp(end,2); posnZ_exp(end,2)]);
+drawSnapshot([Param.T; posn_exp(end,2);...
+                posn_exp(end,3); posn_exp(end,4)]);

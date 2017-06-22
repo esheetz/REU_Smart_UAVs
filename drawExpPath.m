@@ -4,7 +4,7 @@
 %   Param.absInitX, Param.absInitY
 % calls function drawSnapshot(posnXY)
 % inputs:
-%   posnXYZ, a vector with 4 elements
+%   posnXYZ, a 4x1 vector
 %       posnXYZ(1) = simultion time
 %       posnXYZ(2) = x position
 %       posnXYZ(3) = y position
