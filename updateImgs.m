@@ -18,7 +18,7 @@ function updateImgs(posnXYZ)
     global currCam
     global currSnap
     global snapIdx
-    global snapshots
+    global snapshotsG
     global waypointPosns
     
     %% update currCam
@@ -26,13 +26,14 @@ function updateImgs(posnXYZ)
             posnXYZ(3) + Param.absInitY];
     offset = Param.snapDim/2;
     snapPosn = [posn(1) - offset, posn(2) - offset];
-    currCam = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
+    cam = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
+    currCam = rgb2gray(cam);
 
     %% update currSnap if needed
     if pixOffset >= Param.switchThresh
         waypointPosns = cat(1,waypointPosns,posnXYZ');
         snapIdx = snapIdx - 1;
-        currSnap = snapshots(:,:,((3*snapIdx)-2):(3*snapIdx));
+        currSnap = snapshotsG(:,:,snapIdx);
     end
     
 end

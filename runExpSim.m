@@ -13,7 +13,8 @@ initParam
 %% define global variables
 global posn_exp
 global img
-global snapshots
+global snapshotsRGB
+global snapshotsG
 global snapshotPosns
 
 %% create random paths
@@ -50,7 +51,8 @@ snapPosn = [posn(1) - offset, posn(2) - offset];
 snap = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
 
 % store snapshot in array
-snapshots = snap;
+snapshotsRGB = snap;
+snapshotsG = rgb2gray(snap);
 snapshotPosns = [0 Param.initX Param.initY Param.altitude];
 
 % plot snapshot

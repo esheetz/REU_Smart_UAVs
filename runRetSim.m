@@ -10,7 +10,7 @@ initParam
 %% define global variables
 % from exploratory journey
 global posn_exp
-global snapshots
+global snapshotsG
 
 % for return journey
 global dirV_ret
@@ -39,13 +39,15 @@ drawRetPath(posnXYZ)
 %% initialize currCam and currSnap
 % currSnap
 snapIdx = Param.T/Param.deltaS + 1;
-currSnap = snapshots(:,:,((3*snapIdx)-2):(3*snapIdx));
+currSnap = snapshotsG(:,:,snapIdx);
+    %((3*snapIdx)-2):(3*snapIdx)); % for snapshotsRGB
 
 % currCam
 posn = [posnXYZ(2) + Param.absInitX, posnXYZ(3) + Param.absInitY];
 offset = Param.snapDim/2;
 snapPosn = [posn(1) - offset, posn(2) - offset];
-currCam = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
+cam = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
+currCam = rgb2gray(cam);
 
 % initialize pixOffset
 pixOffset = 0;

@@ -9,7 +9,7 @@ Param.numSamps = Param.T/Param.deltaT; % number of samples
 %% parameters related to UAV position
 Param.initX = 0; % initial x position (according to UAV)
 Param.initY = 0; % initial y position (according to UAV)
-Param.altitude = 70; % fixed altitude of UAV
+Param.altitude = 149.25; % fixed altitude of UAV
 Param.absInitX = 2500; % initial x position (in image)
 Param.absInitY = 2500; % initial y position (in image)
 

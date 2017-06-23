@@ -15,7 +15,8 @@
 function drawSnapshot(posnXYZ)
     %% define global variables
     global img
-    global snapshots
+    global snapshotsRGB
+    global snapshotsG
     global snapshotPosns
 
     %% initialize needed parameters
@@ -43,7 +44,8 @@ function drawSnapshot(posnXYZ)
         snap = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
         
         % store snapshot in array
-        snapshots = cat(3,snapshots,snap);
+        snapshotsRGB = cat(3,snapshotsRGB,snap);
+        snapshotsG = cat(3,snapshotsG,rbg2gray(snap));
         snapshotPosns = cat(1,snapshotPosns,posnXYZ');
         
         % plot snapshot
