@@ -45,7 +45,7 @@ function drawSnapshot(posnXYZ)
         
         % store snapshot in array
         snapshotsRGB = cat(3,snapshotsRGB,snap);
-        snapshotsG = cat(3,snapshotsG,rbg2gray(snap));
+        snapshotsG = cat(3,snapshotsG,rgb2gray(snap));
         snapshotPosns = cat(1,snapshotPosns,posnXYZ');
         
         % plot snapshot
