@@ -11,6 +11,7 @@ initParam
 % from exploratory journey
 global posn_exp
 global snapshotsG
+global img
 
 % for return journey
 global dirV_ret

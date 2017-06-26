@@ -19,6 +19,7 @@ function updateImgs(posnXYZ)
     global currSnap
     global snapIdx
     global snapshotsG
+    global img
     global waypointPosns
     
     %% update currCam
