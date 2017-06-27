@@ -50,8 +50,37 @@ function nnOut = getFeatures(~)
     currSnapY = currSnapPosn(2);
     
     %% call features.py
-    pnts = py.features.feature_points(imgStr,currCamX,currCamY,currSnapX,currSnapY,Param.snapDim);
+    pnts = py.features.feature_points(imgStr,...
+        currCamX,currCamY,currSnapX,currSnapY,Param.snapDim);
     
-    %% arrange feature points into vector H4point
-
+    % NOTE: SUBTRACTION HERE MAY AFFECT DIRECTION OF VECTOR
+    % IF VECTOR IS GOING WRONG WAY, SWITCH CAM/SNAP INPUTS INTO PY
+    % NAMES WILL HAVE TO CHANGE ACCORDINGLY IN REST OF FUNCTION
+    
+    %% arrange feature points into nnOut
+    camPnts = pnts{1};
+    snapPnts = pnts{2};
+    
+    pcs = zeros(8,1);
+    pcs(1) = camPnts{1};
+    pcs(2) = camPnts{2};
+    pcs(3) = camPnts{3};
+    pcs(4) = camPnts{4};
+    pcs(5) = camPnts{5};
+    pcs(6) = camPnts{6};
+    pcs(7) = camPnts{7};
+    pcs(8) = camPnts{8};
+    
+    prs = zeros(8,1);
+    prs(1) = snapPnts{1};
+    prs(2) = snapPnts{2};
+    prs(3) = snapPnts{3};
+    prs(4) = snapPnts{4};
+    prs(5) = snapPnts{5};
+    prs(6) = snapPnts{6};
+    prs(7) = snapPnts{7};
+    prs(8) = snapPnts{8};
+    
+    nnOut = prs - pcs;
+    
 end

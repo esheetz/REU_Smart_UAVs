@@ -10,15 +10,12 @@ import numpy as np
 #   y2, the y-coordinate of the second crop (upper left hand corner)
 #   snapDim, the dimensions of the snapshot
 # outputs:
-#   pnts, a 8x2 matrix of the feature points in each image
-#       [[img1_kp1x img1_kp1y]
-#        [img1_kp2x img1_kp2y]
-#        [img1_kp3x img1_kp3y]
-#        [img1_kp4x img1_kp4y]
-#        [img2_kp1x img2_kp1y]
-#        [img2_kp2x img2_kp2y]
-#        [img2_kp3x img2_kp3y]
-#        [img2_kp4x img2_kp4y]]
+#   pnts, a 1x2 tuple of the feature points in each image
+#       [pnts1 pnts2]
+#       pnts1:
+#           [x1 y1 x2 y2 x3 y3 x4 y4]
+#       pnts2:
+#           [x1 y1 x2 y2 x3 y3 x4 y4]
 
 def feature_points(imStr,x1,y1,x2,y2,snapDim):
     
@@ -56,7 +53,8 @@ def feature_points(imStr,x1,y1,x2,y2,snapDim):
     list_kp2 = []
     
     # initialize pnts
-    pnts = np.zeros((8,2), dtype="float32")
+    pnts1 = []
+    pnts2 = []
     i = 0
     
     # for each match...
@@ -77,8 +75,10 @@ def feature_points(imStr,x1,y1,x2,y2,snapDim):
     
         # store four best feature points in pnts
         if i < 4:
-            pnts[i] = [x1, y1]
-            pnts[4+i] = [x2, y2]
+            pnts1.append(x1)
+            pnts1.append(y1)
+            pnts2.append(x2)
+            pnts2.append(y2)
             i = i + 1
         
-    return pnts
+    return pnts1,pnts2
