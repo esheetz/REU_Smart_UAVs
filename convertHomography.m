@@ -38,11 +38,11 @@ function Hmatrix = convertHomography(H4point)
          pc4(1) pc4(2) 1 0 0 0 -pc4(1)*pr4(1) -pc4(2)*pr4(1) -pr4(1);
          0 0 0 pc4(1) pc4(2) 1 -pc4(1)*pr4(2) -pc4(2)*pr4(2) -pr4(2)];
      
-    b = zeros(8,1);
+    % b = zeros(8,1);
     
     % solve
     % h is 9x1 matrix containing elements of Hmatrix
-    h = A\b;
+    h = null(A); % returns nonzero vector that satisfies A*x = b
     
     % rearrange elements of h to form Hmatrix
     Hmatrix = [h(1:3)';
