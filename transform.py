@@ -61,7 +61,7 @@ def four_point_transform(image, pts, originX, originY):
     G = image[originY:originY + maxHeight, originX:originX + maxWidth]
 
     # Creates Warped Image
-    warped = cv2.warpPerspective(image, M, (maxWidth, maxHeight))
 
-    # return the warped and non-cropped images
-    return warped, G
+
+    # return cropped
+    return G

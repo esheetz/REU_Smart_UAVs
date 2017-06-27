@@ -12,10 +12,14 @@ initParam
 
 %% define global variables
 global posn_exp
+global imgStr
 global img
 global snapshotsRGB
 global snapshotsG
 global snapshotPosns
+
+%% initialize imgStr
+imgStr = str;
 
 %% create random paths
 dirV_exp = genRandomDirs;

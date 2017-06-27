@@ -22,6 +22,9 @@ function updateImgs(posnXYZ)
     global img
     global waypointPosns
     
+    %% initialize needed parameters
+    initParam
+    
     %% update currCam
     posn = [posnXYZ(2) + Param.absInitX,...
             posnXYZ(3) + Param.absInitY];

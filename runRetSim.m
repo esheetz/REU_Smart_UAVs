@@ -2,7 +2,7 @@
 % MUST DO ROSINIT FIRST
 
 %% user defined parameters
-simStr = 'return_journey'; % extension not needed
+simStr = 'return_journey_features'; % extension not needed
 
 %% initialize needed parameters
 initParam
@@ -12,6 +12,7 @@ initParam
 global posn_exp
 global snapshotsG
 global img
+global imgStr
 
 % for return journey
 global dirV_ret
@@ -23,7 +24,7 @@ global pixOffset
 global waypointPosns
 
 %% initialize return history
-ts_next = dirX(end,1) + Param.deltaT;
+ts_next = dirV_exp(end,1) + Param.deltaT;
 posn_ret = [ts_next posn_exp(end,2) posn_exp(end,3) posn_exp(end,4)];
 waypointPosns = [Param.T, posn_exp(end,2),...
                     posn_exp(end,3), Param.altitude];
@@ -38,17 +39,11 @@ posnXYZ = updateRetPosn(dirV);
 drawRetPath(posnXYZ)
 
 %% initialize currCam and currSnap
+% currCam set when drawRetPath called
 % currSnap
 snapIdx = Param.T/Param.deltaS + 1;
 currSnap = snapshotsG(:,:,snapIdx);
     %((3*snapIdx)-2):(3*snapIdx)); % for snapshotsRGB
-
-% currCam
-posn = [posnXYZ(2) + Param.absInitX, posnXYZ(3) + Param.absInitY];
-offset = Param.snapDim/2;
-snapPosn = [posn(1) - offset, posn(2) - offset];
-cam = imcrop(img,[snapPosn Param.snapDim-1 Param.snapDim-1]);
-currCam = rgb2gray(cam);
 
 % initialize pixOffset
 pixOffset = 0;
