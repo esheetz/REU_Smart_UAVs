@@ -30,8 +30,8 @@ def feature_points(imStr,x1,y1,x2,y2,snapDim):
     img = cv2.imread(imStr)
     
     # get crops
-    img1 = img[y1:y1+snapDim, x1:x1+snapDim]
-    img2 = img[y2:y2+snapDim, x2:x2+snapDim]
+    img1 = img[int(y1):int(y1+snapDim), int(x1):int(x1+snapDim)]
+    img2 = img[int(y2):int(y2+snapDim), int(x2):int(x2+snapDim)]
     
     #######################
     # Find Feature Points #
