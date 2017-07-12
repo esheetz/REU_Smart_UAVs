@@ -3,9 +3,12 @@
 
 %% user defined parameters
 % name of image to be read in
-str = 'images/city.png'; % absolute path and extension needed
+str = 'images/forest_edit.png'; % absolute path and extension needed
 simStr = 'exploratory_journey'; % extension not needed
-% simStr = 'exploratory_journey_path';
+% environments tested:
+% 'images/city.png'
+% 'images/desert_edit.png'
+% 'images/forest_edit.png'
 
 %% initialize needed parameters
 initParam
@@ -36,7 +39,6 @@ figure(1)
 image(img)
 
 %% plot first snapshot and save in snapshots
-
 % find posn and radius
 posn = [Param.absInitX, Param.absInitY];
 r = Param.altitude * tand(Param.camAngView);

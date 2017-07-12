@@ -6,7 +6,7 @@
 % outputs:
 %   dirV, normalized 3x1 direction vector for return journey
 
-function dirV = turnAround(posnX,posnY,posnZ)
+function dirV = turnAround_path(posnX,posnY,posnZ)
 
     posn_final = [posnX(end,2) posnY(end,2) posnZ(end,2)];
     posn_prev = [posnX(end-1,2) posnY(end-1,2) posnZ(end-1,2)];

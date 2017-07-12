@@ -3,7 +3,7 @@
 % simulates neural network output
 % if there is a problem, see usePythonModules.m
 % inputs:
-%   filler input
+%   none
 % outputs:
 %   nnOut, an 8x1 vector of the neural network output
 %       [[ deltaX1 ]
@@ -18,12 +18,9 @@
 function nnOut = getFeatures(~)
 
     %% define global variables
-    global snapIdx
-    global snapshotPosns
-    global posn_ret
     global imgStr
-    %global currCam
-    %global currSnap
+    global currCamPosn
+    global currSnapPosn
     
     %% initialize needed parameters
     initParam
@@ -31,35 +28,32 @@ function nnOut = getFeatures(~)
     %% get coordinates for upper left corner of currCam and currSnap
     offset = Param.snapDim/2;
     
-    % get relative positions of image centers
-    currCamPosn = posn_ret(end,2:3);
-    currSnapPosn = snapshotPosns(snapIdx,2:3);
-    
     % get absolute positions of image centers
-    currCamPosn = currCamPosn + [Param.absInitX Param.absInitY];
-    currSnapPosn = currSnapPosn + [Param.absInitX Param.absInitY];
+    camPosn = currCamPosn + [Param.absInitX Param.absInitY];
+    snapPosn = currSnapPosn + [Param.absInitX Param.absInitY];
     
     % get absolute positions of upper left corners
-    currCamPosn = currCamPosn - offset;
-    currSnapPosn = currSnapPosn - offset;
+    camPosn = camPosn - offset;
+    snapPosn = snapPosn - offset;
     
     % separate coordinates
-    currCamX = currCamPosn(1);
-    currCamY = currCamPosn(2);
-    currSnapX = currSnapPosn(1);
-    currSnapY = currSnapPosn(2);
+    currCamX = camPosn(1);
+    currCamY = camPosn(2);
+    currSnapX = snapPosn(1);
+    currSnapY = snapPosn(2);
     
     %% call features.py
     pnts = py.features.feature_points(imgStr,...
         currCamX,currCamY,currSnapX,currSnapY,Param.snapDim);
-    
+    %pnts = py.features.feature_points(imgStr,...
+    %    currSnapX,currSnapY,currCamX,currCamY,Param.snapDim);
     % NOTE: SUBTRACTION HERE MAY AFFECT DIRECTION OF VECTOR
     % IF VECTOR IS GOING WRONG WAY, SWITCH CAM/SNAP INPUTS INTO PY
     % NAMES WILL HAVE TO CHANGE ACCORDINGLY IN REST OF FUNCTION
     
     %% arrange feature points into nnOut
-    camPnts = pnts{1};
     snapPnts = pnts{2};
+    camPnts = pnts{1};
     
     pcs = zeros(8,1);
     pcs(1) = camPnts{1};

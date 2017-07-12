@@ -33,6 +33,7 @@ function dirV_exp = genRandomDirs
     
     %% random direction generation
     % determine random slopes
+    rng shuffle % seeds prng based on time
     diffSlope = Param.maxRandDir - Param.minRandDir;
     randXdirs = rand(Param.numRandDirs,1);
     randXdirs = diffSlope.*randXdirs;

@@ -17,10 +17,14 @@
 
 function [posnXYZ] = updateRetPosn(dirV)
     %% define global variables
+    global dirV_ret
     global posn_ret
     
     %% initialize needed parameters
     initParam
+    
+    %% update dirV_ret
+    dirV_ret = cat(1,dirV_ret,dirV');
     
     %% next timestamp
     ts_next = dirV(1);
